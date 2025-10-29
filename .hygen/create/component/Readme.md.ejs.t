@@ -10,17 +10,16 @@ THis is index <%= lower_name %> of component <%= component_name %>
 ## files
 
 ```text
-  /<%= absPath %>/<%= component_name %>.jsx
-  /<%= absPath %>/<%= component_name %>.module.css
-  /<%= absPath %>/index.js
-  /<%= absPath %>/Readme.md
+  ./<%= absPath %>/<%= component_name %>.jsx
+  ./<%= absPath %>/<%= component_name %>.module.css
+  ./<%= absPath %>/index.js
+  ./<%= absPath %>/Readme.md
 ```
 
-## file list
+## generated file list
 
 >
-> 1. /<%= absPath %>/<%= component_name %>.jsx
-> 2. /<%= absPath %>/<%= component_name %>.module.css
-> 3. /<%= absPath %>/index.js
-> 4. /<%= absPath %>/Readme.md
->
+> 1. [<%= component_name %>.jsx]<./<%= absPath %>/<%= component_name %>.jsx>
+> 2. [<%= component_name %>.module.css]<./<%= absPath %>/<%= component_name %>.module.css>
+> 3. [index.js]<./<%= absPath %>/index.js>
+> 4. [Readme.md]<./<%= absPath %>/Readme.md>
