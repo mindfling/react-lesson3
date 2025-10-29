@@ -1,5 +1,7 @@
 ---
-to: <%= absPath %>/index.jsx
+to: <%= absPath %>/index.js
 ---
-import {<%= component_name %>} from './<%= component_name %>';
+import { <%= component_name %> } from './<%= component_name %>';
 export default <%= component_name %>;
+//   THis is index <%= lower_name %> of component <%= component_name %> 
+// * export to default export

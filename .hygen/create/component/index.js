@@ -4,7 +4,7 @@ module.exports = {
       {
         type: "input",
         name: "component_name",
-        message: "Имя компонента",
+        message: "THis component name",
       },
       {
         type: "input",
@@ -24,13 +24,12 @@ module.exports = {
       {
         type: "select",
         name: "category",
-        message: "What is test category",
+        message: "What is test options category",
         choices: [
           "makes",
           "done",
           "atoms",
           "molecules",
-          "organisms",
           "templates",
           "pages",
         ],
@@ -40,14 +39,27 @@ module.exports = {
     return inquirer.prompt(questions).then((answers) => {
       const { component_name, dir } = answers;
       const { test, inputtest, category } = answers;
-      console.log("answers: ", answers);
       const lower_name = component_name.toString().toLowerCase();
-      console.log("lower_name: ", lower_name);
       const path = `${dir ? `${dir}/` : ""}${component_name}`;
-      console.log("path: ", path);
       const absPath = `src/components/${path}`;
+
+      console.log("answers: ", answers);
+      console.log("lower_name: ", lower_name);
+      console.log("path: ", path);
       console.log("absPath: ", absPath);
-      return { ...answers, path, absPath, lower_name, test, inputtest, category };
+      
+      const ans = {
+        ...answers,
+        path,
+        absPath,
+        lower_name,
+        test,
+        inputtest,
+        category,
+      };
+
+      console.log('ans of answers: ', ans);
+      return ans;
     });
   },
 };
