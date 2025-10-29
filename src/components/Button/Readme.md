@@ -16,7 +16,7 @@ THis is index button of component Button
 ## generated file list
 
 >
-> 1. [Button.jsx]<./src/components/Button/Button.jsx>
-> 2. [Button.module.css]<./src/components/Button/Button.module.css>
-> 3. [index.js]<./src/components/Button/index.js>
-> 4. [Readme.md]<./src/components/Button/Readme.md>
+> 1. [Button.jsx](./src/components/Button/Button.jsx)
+> 2. [Button.module.css](./src/components/Button/Button.module.css)
+> 3. [index.js](./src/components/Button/index.js)
+> 4. [Readme.md](./src/components/Button/Readme.md)
