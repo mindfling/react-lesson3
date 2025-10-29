@@ -19,7 +19,8 @@ THis is index <%= lower_name %> of component <%= component_name %>
 ## generated file list
 
 >
-> 1. [<%= component_name %>.jsx]<./<%= absPath %>/<%= component_name %>.jsx>
-> 2. [<%= component_name %>.module.css]<./<%= absPath %>/<%= component_name %>.module.css>
-> 3. [index.js]<./<%= absPath %>/index.js>
-> 4. [Readme.md]<./<%= absPath %>/Readme.md>
+> 1. [<%= component_name %>.jsx](./<%= component_name %>.jsx)
+> 2. [<%= component_name %>.module.css](./<%= component_name %>.module.css)
+> 3. [index.js](./index.js)
+> 4. [Readme.md](./Readme.md)
+>
