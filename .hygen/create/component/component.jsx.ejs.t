@@ -4,6 +4,14 @@ to: <%= absPath %>/<%= component_name %>.jsx
 import React from 'react';
 import style from './<%= component_name %>.module.css';
 
-export const <%= component_name %> = props => {
-  return <div className={style.container}></div>
+export const BrainDraint = props => {
+  console.log('<%= component_name %> loaded');
+
+  return (
+    <>
+      <div className={style.container} title={props.title}>
+        {props.children}
+      </div>
+    </>
+  )
 }
