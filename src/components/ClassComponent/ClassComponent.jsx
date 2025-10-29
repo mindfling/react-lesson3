@@ -11,7 +11,7 @@ export class ClassComponent extends React.Component {
             Угадай число
           </label>
           <input className={style.input} type='number' id='user_number' />
-          <button className={style.btn}>Угадать</button>
+          <button className={style.btn} title='Press button to guise'>Угадать</button>
         </form>
       </div>
     );

@@ -1,0 +1,16 @@
+/* * THis is styles for BrainDraint */
+
+.braindraint {
+  display: block;
+}
+
+.braindraint_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  border: 1px solid lawngreen;
+}
