@@ -24,6 +24,12 @@
 .input {
     height: 30px;
     width: 100px;
+    outline: none;
+    border: none;
+}
+.input:focus {
+    outline: 2px solid lawngreen;
+    outline-offset: -2px;
 }
 
 .btn {
@@ -34,6 +40,10 @@
     transition-property: border-color, background-color, color;
     transition-duration: 0.36s;
     transition-timing-function: ease-in-out;
+}
+.btn:focus {
+    outline: 2px solid lawngreen;
+    outline-offset: -2px;
 }
 
 .btn:hover {
