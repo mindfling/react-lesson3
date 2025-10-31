@@ -2,24 +2,30 @@
 import React, {Component} from 'react';
 import style from './ClassComponent.module.css';
 
-// генерируем задуманое число
 const randomNumber = (min, max) => {
+  // генерируем задуманое число
   const res = Math.floor(Math.random() * (max - min + 1)) + min;
-  console.log(` min ${min} max ${max} => res ${res}`);
   return res;
 };
 
 export class ClassComponent extends Component {
   constructor(props) {
     super(props);
+
+    this.randomNumber = randomNumber.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+
     this.min = Number(props.min);
     this.max = Number(props.max);
     this.state = {
       result: 'Результат',
-      number: randomNumber(this.min, this.max),
+      number: this.randomNumber(this.min, this.max),
       userNumber: '',
     };
-    console.log(' this.state: ', this.state);
+    console.log('this.state: ', this.state);
   }
 
   handleSubmit(e) {
@@ -30,21 +36,34 @@ export class ClassComponent extends Component {
     console.log(this.state);
 
     // todo отрабатываем варианты загаданного угаданного числа
-    if (this.state.number == this.state.userNumber) {
+    if (+this.state.number === +this.state.userNumber) {
       console.log(`Угадал число ${this.state.number}`);
+      this.setState({
+        result: `Угадал, угадал!!!\nВаше число ${this.state.userNumber}`,
+      });
       alert(`Всё заканчиваем!\nУгадал число ${this.state.number}\nПОЗДРАВЛЯЕМ`);
       input.value = '';
-      return '';
     } else {
       console.log('ааа не угадал');
+
       if (this.state.userNumber > this.state.number) {
-        console.log('Загаданое вами число БОЛЬШЕ');
+        console.log(`Загаданое вами число ${this.state.userNumber} БОЛЬШЕ`);
+        this.setState({
+          result: `Загаданое вами число ${this.state.userNumber} БОЛЬШЕ`,
+        });
       }
       if (this.state.userNumber < this.state.number) {
-        console.log('Загаданое вами число меньше');
+        console.log(`Загаданое вами число ${this.state.userNumber} меньше`);
+        this.setState({
+          result: `Загаданое вами число ${this.state.userNumber} меньше`,
+        });
       }
     }
+
+    // todo clear input field
+    input.value = '';
   }
+
 
   handleChange(e) {
     const input = e.target;
@@ -55,27 +74,29 @@ export class ClassComponent extends Component {
     console.log(this.state);
   }
 
+
   handleReset(e) {
     // todo create button reset "Сыграть ещё"
-    console.log("form reset", e);
+    console.log('form reset', e);
+    e.target[0].value = '';
   }
 
 
   render() {
-    const empty = "\xa0";
-    const html = "&nbsp";
+    const empty = '\xa0';
+    const html = '&nbsp';
     return (
       <div className={style.game}>
         <p className={style.result}>{`\xa0${this.state.result}`}</p>
         <form
           className={style.form}
-          onSubmit={(e) => {
+          onSubmit={e => {
             this.handleSubmit(e);
             e.preventDefault();
           }}
-          onReset={(e) => {
+          onReset={e => {
             this.handleReset(e);
-            // e.preventDefault();
+            e.preventDefault();
           }}
         >
           <label className={style.label} htmlFor="user_number">
@@ -84,10 +105,10 @@ export class ClassComponent extends Component {
 
           <input
             className={style.input}
-            type="number"
+            type="number"     
             id="user_number"
             name="inputnumber"
-            onChange={(e) => {
+            onChange={e => {
               this.handleChange(e);
             }}
           />
@@ -95,10 +116,11 @@ export class ClassComponent extends Component {
           <button className={style.btn} type="submit" title="Отправить форму">
             Угадать
           </button>
-
+          {/*
           <button className={style.btn} type="reset" title="Очистить форму">
-            Очистить
+            Сыграть ещё
           </button>
+          */}
         </form>
       </div>
     );
