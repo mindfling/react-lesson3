@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import style from './ClassComponent.module.css';
 
+// генерируем задуманое число
 const randomNumber = (min, max) => {
   const res = Math.floor(Math.random() * (max - min + 1)) + min;
   console.log(` min ${min} max ${max} => res ${res}`);
@@ -10,8 +11,10 @@ const randomNumber = (min, max) => {
 export class ClassComponent extends Component {
   constructor(props) {
     super(props);
-    this.min = 11;
-    this.max = 25;
+    // eslint-disable-next-line react/prop-types
+    this.min = Number(props.min);
+    // eslint-disable-next-line
+    this.max = Number(props.max);
     this.state = {
       result: 'Результат',
       number: randomNumber(this.min, this.max),
@@ -21,19 +24,32 @@ export class ClassComponent extends Component {
   }
 
   handleSubmit(e) {
-    console.log('form submit target: ', e.target);
-    console.log('form submit value: ', e.target[0].value);
-    console.log('form submit value: ', e.target['inputnumber'].value);
-    console.log('form submit value: ', e.target.inputnumber.value);
+    const input = e.target.inputnumber;
+    console.log('input: ', input);
+    // console.log('form submit target: ', e.target);
+    // console.log('form submit value: ', e.target[0].value);
+    // console.log('form submit value: ', e.target['inputnumber'].value);
+    // console.log('form submit value: ', e.target.inputnumber.value);
     this.setState({
-
+      userNumber: input.value,
+      // userNumber: e.target[0].value,
     });
+    console.log(this.state);
+
+    // todo отрабатываем варианты загаданного угаданного числа
+    // eslint-disable-next-line
+    if (this.state.number == this.state.userNumber) {
+      console.log(`Угадал число ${this.state.number}`);
+      alert(`Всё заканчиваем!\nУгадал число ${this.state.number}\nПОЗДРАВЛЯЕМ`);
+      input.value = '';
+    } else {
+      console.log('ааа не угадал');
+    }
   }
 
   handleChange(e) {
-    // console.log('input change', e);
-    // console.log('input target', e.target);
-    console.log('input value', e.target.value);
+    const input = e.target;
+    console.log('input value', input.value);
     this.setState({
       userNumber: e.target.value,
     });
@@ -48,7 +64,7 @@ export class ClassComponent extends Component {
   render() {
     return (
       <div className={style.game}>
-        <p className={style.result}>{`на уме ${this.state.number}`}</p>
+        <p className={style.result}>a&nbsp;{`\xa0${this.state.result}`}</p>
         <form
           className={style.form}
           onSubmit={(e) => {
