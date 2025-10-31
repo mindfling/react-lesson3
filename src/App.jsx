@@ -7,7 +7,7 @@ export default class App extends React.Component {
 
     return (
       <div className="app">
-        <ComponentClass my="this is my" text="hallllo" />
+        <ComponentClass min="5" max="27" text="text hallo" />
       </div>
     );
   }

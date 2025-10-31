@@ -1,29 +1,38 @@
 import React, {Component} from 'react';
 import style from './ClassComponent.module.css';
 
+const randomNumber = (min, max) => {
+  const res = Math.floor(Math.random() * (max - min + 1)) + min;
+  console.log(` min ${min} max ${max} => res ${res}`);
+  return res;
+};
+
 export class ClassComponent extends Component {
   constructor(props) {
     super(props);
+    this.min = 11;
+    this.max = 25;
     this.state = {
-      min: 1,
-      max: 10,
-      number: Math.floor(Math.random() * this.state.max - this.state.min) +
-        this.state.max,
-      userNumber: ' ',
+      result: 'Результат',
+      number: randomNumber(this.min, this.max),
+      userNumber: '',
     };
+    console.log(' this.state: ', this.state);
   }
 
   handleSubmit(e) {
     console.log('form submit target: ', e.target);
+    console.log('form submit value: ', e.target[0].value);
+    console.log('form submit value: ', e.target['inputnumber'].value);
+    console.log('form submit value: ', e.target.inputnumber.value);
     this.setState({
-      number: 12345,
-      result: 'Щас результат',
+
     });
   }
 
   handleChange(e) {
-    console.log('input change', e);
-    console.log('input target', e.target);
+    // console.log('input change', e);
+    // console.log('input target', e.target);
     console.log('input value', e.target.value);
     this.setState({
       userNumber: e.target.value,
@@ -35,15 +44,20 @@ export class ClassComponent extends Component {
     console.log('form reset', e);
   }
 
+
   render() {
     return (
       <div className={style.game}>
-        <p className={style.result}>{`результат ${this.state.userNumber}`}</p>
+        <p className={style.result}>{`на уме ${this.state.number}`}</p>
         <form
           className={style.form}
           onSubmit={(e) => {
             this.handleSubmit(e);
             e.preventDefault();
+          }}
+          onReset={(e) => {
+            this.handleReset(e);
+            // e.preventDefault();
           }}
         >
           <label className={style.label} htmlFor="user_number">
@@ -54,17 +68,17 @@ export class ClassComponent extends Component {
             className={style.input}
             type="number"
             id="user_number"
-            name="userNumber"
+            name="inputnumber"
             onChange={(e) => {
               this.handleChange(e);
             }}
           />
 
-          <button className={style.btn} type="submit">
+          <button className={style.btn} type="submit" title="Отправить форму">
             Угадать
           </button>
 
-          <button className={style.btn} type="reset">
+          <button className={style.btn} type="reset" title="Очистить форму">
             Очистить
           </button>
         </form>
