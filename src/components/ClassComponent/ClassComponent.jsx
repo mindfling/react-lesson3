@@ -1,3 +1,4 @@
+/* eslint-disable    */
 import React, {Component} from 'react';
 import style from './ClassComponent.module.css';
 
@@ -11,9 +12,7 @@ const randomNumber = (min, max) => {
 export class ClassComponent extends Component {
   constructor(props) {
     super(props);
-    // eslint-disable-next-line react/prop-types
     this.min = Number(props.min);
-    // eslint-disable-next-line
     this.max = Number(props.max);
     this.state = {
       result: 'Результат',
@@ -24,26 +23,26 @@ export class ClassComponent extends Component {
   }
 
   handleSubmit(e) {
-    const input = e.target.inputnumber;
-    console.log('input: ', input);
-    // console.log('form submit target: ', e.target);
-    // console.log('form submit value: ', e.target[0].value);
-    // console.log('form submit value: ', e.target['inputnumber'].value);
-    // console.log('form submit value: ', e.target.inputnumber.value);
+    const input = e.target[0];
     this.setState({
       userNumber: input.value,
-      // userNumber: e.target[0].value,
     });
     console.log(this.state);
 
     // todo отрабатываем варианты загаданного угаданного числа
-    // eslint-disable-next-line
     if (this.state.number == this.state.userNumber) {
       console.log(`Угадал число ${this.state.number}`);
       alert(`Всё заканчиваем!\nУгадал число ${this.state.number}\nПОЗДРАВЛЯЕМ`);
       input.value = '';
+      return '';
     } else {
       console.log('ааа не угадал');
+      if (this.state.userNumber > this.state.number) {
+        console.log('Загаданое вами число БОЛЬШЕ');
+      }
+      if (this.state.userNumber < this.state.number) {
+        console.log('Загаданое вами число меньше');
+      }
     }
   }
 
@@ -57,14 +56,17 @@ export class ClassComponent extends Component {
   }
 
   handleReset(e) {
-    console.log('form reset', e);
+    // todo create button reset "Сыграть ещё"
+    console.log("form reset", e);
   }
 
 
   render() {
+    const empty = "\xa0";
+    const html = "&nbsp";
     return (
       <div className={style.game}>
-        <p className={style.result}>a&nbsp;{`\xa0${this.state.result}`}</p>
+        <p className={style.result}>{`\xa0${this.state.result}`}</p>
         <form
           className={style.form}
           onSubmit={(e) => {
