@@ -7,15 +7,24 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+## use code
+
 ```bash
 npm create vite@5.4 . -- --template react
 ```
 
+```
 vite@5.4 => vite:^5.3.4 -> vite:5.4.21
          => vite:~5.3.4 -> vite:5.3.6
+```
 
 ```bash
 npm i
+```
+
+```bash
+npm install
+npm run start
 ```
 
 ```bash
