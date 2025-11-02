@@ -4,7 +4,7 @@ module.exports = {
       {
         type: "input",
         name: "component_name",
-        message: "THis component name",
+        message: "Name this component",
       },
       {
         type: "input",
@@ -12,54 +12,56 @@ module.exports = {
         message: "Nested directory? (Optional) (by default)",
       },
       {
-        type: "input",
-        name: "test",
-        message: "THis is test input first (by default)",
-      },
-      {
-        type: "input",
-        name: "inputtest",
-        message: "THis is test input two (by default)",
-      },
-      {
         type: "select",
         name: "category",
-        message: "What is test options category",
+        message: "What is the type of the category of the component",
         choices: [
-          "makes",
-          "done",
-          "atoms",
-          "molecules",
-          "templates",
-          "pages",
+          "functional",
+          "class",
+          "pages (not)",
+          "template (not)",
         ],
       },
     ];
 
-    return inquirer.prompt(questions).then((answers) => {
-      const { component_name, dir } = answers;
-      const { test, inputtest, category } = answers;
-      const lower_name = component_name.toString().toLowerCase();
-      const path = `${dir ? `${dir}/` : ""}${component_name}`;
-      const absPath = `src/components/${path}`;
+    return inquirer
+      .prompt(questions)
+      .then((answers) => {
+        const { component_name, dir } = answers;
+        const { category } = answers;
+        const lower_name = component_name.toString().toLowerCase();
+        const upper_name = component_name.toString().toUpperCase();
+        const path = `${dir ? `${dir}/` : ""}${component_name}`;
+        const absPath = `./src/components/${path}`;
 
-      console.log("answers: ", answers);
-      console.log("lower_name: ", lower_name);
-      console.log("path: ", path);
-      console.log("absPath: ", absPath);
+        const isFunctional = category === 'functional';
+        const isClass = category === 'class';
       
-      const ans = {
-        ...answers,
-        path,
-        absPath,
-        lower_name,
-        test,
-        inputtest,
-        category,
-      };
+        console.log('\nisFunctional: ', isFunctional);
+        console.log('isClass: ', isClass);
+        
+        // console.log("lower_name: ", lower_name);
+        // console.log('upper_name: ', upper_name);
+        // console.log("component loc path:", path);
+        console.log("component abs Path:", absPath);
+        console.log("\nall other answers: ", answers);
+        
+        const ans = {
+          ...answers,
+          path,
+          absPath,
+          component_name,
+          lower_name,
+          upper_name,
+          category,
+          isFunctional,
+          isClass,
+        };
 
-      console.log('ans of answers: ', ans);
-      return ans;
+        console.log(`
+  => The ${isFunctional ? 'Functional Component' : 'Class Component'} "${component_name}" just has been made`);
+
+        return ans;
     });
   },
 };
