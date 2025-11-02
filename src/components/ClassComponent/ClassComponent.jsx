@@ -101,26 +101,13 @@ export class ClassComponent extends Component {
   guessButton = () => {
     return (
       <>
-        <button className={style.btn} type="submit" title="Отправить форму">
-          Угадать
-        </button>
+
       </>
     );
   };
 
   newgameButton = () => {
-    if (this.state.newgame) {
-      return (
-        <button
-          className={style.btn}
-          type="reset"
-          disabled={this.state.newgame ? true : false}
-          title="Очистить форму"
-        >
-          Сыграть ещё
-        </button>
-      );
-    }
+
   };
 
   getDisabled = () => (this.state.newgame ? "disabled" : "");
@@ -151,9 +138,20 @@ export class ClassComponent extends Component {
             }}
           />
 
-          {this.guessButton()}
+          <button className={style.btn} type="submit" title="Отправить форму">
+            Угадать
+          </button>
 
-          {this.newgameButton()}
+          { (this.state.newgame) ? (
+            <button
+              className={style.btn}
+              type="reset"
+              disabled={this.state.newgame ? true : false}
+              title="Очистить форму"
+            >
+              Сыграть ещё
+            </button>
+          ) : ('')}
         </form>
       </div>
     );

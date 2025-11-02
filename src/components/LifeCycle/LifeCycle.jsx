@@ -2,11 +2,15 @@ import React from 'react';
 import style from './LifeCycle.module.css';
 
 export class LifeCycle extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log('LifeCycle class Component loaded');
+  }
+
   render() {
     return (
       <div>
         <h1 className={style.title}>Жизненный цикл</h1>
-
         <div className={style.container}>
           <div>
             <h2 className={style.title}>Типы</h2>
@@ -17,7 +21,6 @@ export class LifeCycle extends React.Component {
               <li>Ошибки</li>
             </ul>
           </div>
-
           <div className='stage'>
             <h2 className={style.title}>Этапы</h2>
             <ul className={style.list}>
