@@ -1,12 +1,9 @@
 /* eslint-disable  */
 import React, {Component} from 'react';
 import style from './ClassComponent.module.css';
-
+import { randomNumMinimax, randomNumber } from '../../util/random';
 // генерируем задуманое число
-const randomNumber = (min, max) => {
-  const res = Math.floor(Math.random() * (max - min + 1)) + min;
-  return res;
-};
+
 
 // * Классовый компонент
 export class ClassComponent extends Component {
@@ -16,7 +13,7 @@ export class ClassComponent extends Component {
     this.max = Number(props.max);
     this.state = {
       result: 'Результат',
-      number: randomNumber(this.min, this.max),
+      number: randomNumMinimax(this.min, this.max),
       userNumber: '',
       newgame: false,
     };
