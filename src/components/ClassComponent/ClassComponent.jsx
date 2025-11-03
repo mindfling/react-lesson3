@@ -16,7 +16,7 @@ export class ClassComponent extends Component {
       userNumber: '',
       newgame: false,
     };
-    // console.log('this.state: ', this.state);
+    console.log('this.state: ', this.state);
   }
 
 
@@ -74,8 +74,10 @@ export class ClassComponent extends Component {
 
   handleChange = e => {
     const input = e.target;
-    this.setState({
+    this.setState((state, props) => ({
       userNumber: input.value,
+    }), () => {
+      console.log('тест асинхронного вывода', this.state, this.props);
     });
   }
 
@@ -113,6 +115,7 @@ export class ClassComponent extends Component {
 
           <input
             className={style.input}
+            autoFocus={true}
             type="number"
             id="user_number"
             name="userNumber"
