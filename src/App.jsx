@@ -1,14 +1,15 @@
-import React from 'react';
+// import React from 'react'; // 6.9k
+import { Component } from 'react'; // 4.1k
 import ComponentClass from './components/ClassComponent';
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
-    console.log('Hallo App class component');
-
     return (
-      <div className="app">
-        <ComponentClass min="1" max="10" text="text hallo" />
-      </div>
+      <>
+        <div className="app">
+          <ComponentClass min={1} max={12} />
+        </div>
+      </>
     );
   }
 }

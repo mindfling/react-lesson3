@@ -1,7 +1,6 @@
-/* eslint-disable  */
-import React, {Component} from 'react';
+import {Component} from 'react'; 
 import style from './ClassComponent.module.css';
-import { randomNumMinimax, randomNumber } from '../../util/random';
+import {randomNumber} from '../../util/random';
 // генерируем задуманое число
 
 
@@ -13,79 +12,82 @@ export class ClassComponent extends Component {
     this.max = Number(props.max);
     this.state = {
       result: 'Результат',
-      number: randomNumMinimax(this.min, this.max),
+      number: randomNumber(this.min, this.max),
       userNumber: '',
       newgame: false,
     };
-    console.log('this.state: ', this.state);
+    // console.log('this.state: ', this.state);
   }
 
-  handleSubmit(e) {
+
+  handleSubmit = e => {
     e.preventDefault();
-    const input = e.target[0];
-    this.setState({
-      userNumber: input.value,
-    });
+    const input = e.target.userNumber;
+    // const input = e.target[0];
+    // this.setState({
+    //   userNumber: input.value,
+    // });
 
-    // проверка на пустое поле
-    if (!this.state.userNumber) {
-      this.setState({
-        result: `Введите целое число от ${this.min} до ${this.max}`,
-      });
-      return;
-    }
-
-    if (this.state.userNumber < this.min) {
-      this.setState({
-        result: `Число должно быть больше ${this.min}`,
-      });
-      return;
-    }
-
-    if (this.state.userNumber > this.max) {
-      this.setState({
-        result: `Число должно быть меньше чем ${this.max}`,
-      });
-      return;
-    }
-
-    if (+this.state.number === +this.state.userNumber) {
-      this.setState({
-        result: `Угадал, угадал:) \nВаше число ${this.state.userNumber}`,
-        newgame: true,
-      });
-    } else {
-      if (this.state.userNumber > this.state.number) {
-        this.setState({
-          result: `Загаданое вами число ${this.state.userNumber} БОЛЬШЕ`,
-        });
+    this.setState(state => {
+      if (!state.userNumber) {
+        return {
+          result: `Введите целое число от ${this.min} до ${this.max}`,
+        }
       }
-
-      if (this.state.userNumber < this.state.number) {
-        this.setState({
-          result: `Загаданое вами число ${this.state.userNumber} меньше`,
-        });
+      
+      if (state.userNumber < this.min) {
+        return {
+          result: `Число должно быть больше ${this.min}`,
+        }
       }
-    }
+      
+      if (state.userNumber > this.max) {
+        return {
+          result: `Число должно быть меньше чем ${this.max}`,
+        };
+      }
+      
+      if (Number(state.userNumber) === Number(state.number)) {
+        return {
+          result: `Угадал, угадал:) \nВаше число ${state.userNumber}`,
+          newgame: true, // перезапуск игры
+        };
+      } 
+      
+      if (state.userNumber > state.number) {
+        return {
+          result: `Ваше число ${state.userNumber} БОЛЬШЕ загаданого`,
+        }
+      }
+      
+      if (state.userNumber < state.number) {
+        return {
+          result: `Ваше число ${state.userNumber} меньше загаданого`,
+        }
+      }
+    }); // setState
 
-    input.value = ''; // очистка поля
+    // после submit очищаем форму
+    input.value = '';
   }
 
-  handleChange(e) {
+
+  handleChange = e => {
     const input = e.target;
     this.setState({
       userNumber: input.value,
     });
   }
 
-  handleReset(e) {
-    e.target[0].value = '';
+
+  handleReset = e => {
     this.setState({
       result: 'Новая игра',
       number: randomNumber(this.min, this.max),
       userNumber: '',
-      newgame: false,
+      newgame: false, // возвращаем в исходное состояние
     });
+    e.target.userNumber.value = ''; // clear
   }
 
 
@@ -95,17 +97,15 @@ export class ClassComponent extends Component {
         <p
           className={style.result}
           title={this.state.newgame ?
-            'Нажмите кнопку \"Сыграть ещё\"' :
+            'Нажмите кнопку "Сыграть ещё"' :
             `например попробуйте число ${this.state.number}`}
         >
           {this.state.result}
         </p>
         <form
           className={style.form}
-          onSubmit={e => {
-            this.handleSubmit(e);
-          }}
-          onReset={e => this.handleReset(e)}
+          onSubmit={this.handleSubmit}
+          onReset={this.handleReset}
         >
           <label className={style.label} htmlFor="user_number">
             Угадай число
@@ -115,11 +115,9 @@ export class ClassComponent extends Component {
             className={style.input}
             type="number"
             id="user_number"
-            name="inputnumber"
+            name="userNumber"
             disabled={this.state.newgame}
-            onChange={(e) => {
-              this.handleChange(e);
-            }}
+            onChange={this.handleChange}
           />
 
           <button
@@ -140,8 +138,7 @@ export class ClassComponent extends Component {
               disabled={!this.state.newgame}
               title={this.state.newgame ?
                 'Очистить форму и начать игру заново' :
-                'Полне деактивировано'}
-
+                'Поле деактивировано'}
             >
               Сыграть ещё
             </button>
