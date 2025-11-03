@@ -12,18 +12,11 @@ const randomNumber = (min, max) => {
 export class ClassComponent extends Component {
   constructor(props) {
     super(props);
-
-    this.randomNumber = randomNumber.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-
     this.min = Number(props.min);
     this.max = Number(props.max);
-
     this.state = {
       result: 'Результат',
-      number: this.randomNumber(this.min, this.max),
+      number: randomNumber(this.min, this.max),
       userNumber: '',
       newgame: false,
     };
@@ -112,8 +105,10 @@ export class ClassComponent extends Component {
         </p>
         <form
           className={style.form}
-          onSubmit={this.handleSubmit}
-          onReset={this.handleReset}
+          onSubmit={e => {
+            this.handleSubmit(e);
+          }}
+          onReset={e => this.handleReset(e)}
         >
           <label className={style.label} htmlFor="user_number">
             Угадай число
@@ -125,7 +120,9 @@ export class ClassComponent extends Component {
             id="user_number"
             name="inputnumber"
             disabled={this.state.newgame}
-            onChange={this.handleChange}
+            onChange={(e) => {
+              this.handleChange(e);
+            }}
           />
 
           <button
