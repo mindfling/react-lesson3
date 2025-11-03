@@ -7,6 +7,8 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "com": "hygen create component",
+    "comp": "hygen create component",
+    "class": "hygen create classcomponent",
     "component": "hygen create component",
     "func": "hygen create functioncomp",
     "preview": "vite preview"
