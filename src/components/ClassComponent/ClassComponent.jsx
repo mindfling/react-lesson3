@@ -1,7 +1,7 @@
 import {Component} from 'react'; 
 import style from './ClassComponent.module.css';
-import {randomNumber} from '../../util/random';
-// генерируем задуманое число
+import {randomNumMinimax, randomNumber} from '../../util/random';
+import PropTypes from 'prop-types';
 
 
 // * Классовый компонент
@@ -10,11 +10,13 @@ export class ClassComponent extends Component {
     super(props);
     this.min = Number(props.min);
     this.max = Number(props.max);
+    console.log('this.state: ', this.state);
     this.state = {
       result: 'Результат',
-      number: randomNumber(this.min, this.max),
+      randomNumber: randomNumMinimax(this.min, this.max),
       userNumber: '',
       newgame: false,
+      count: 0,
     };
     console.log('this.state: ', this.state);
   }
@@ -23,13 +25,9 @@ export class ClassComponent extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const input = e.target.userNumber;
-    // const input = e.target[0];
-    // this.setState({
-    //   userNumber: input.value,
-    // });
 
     this.setState(state => {
-      if (!state.userNumber) {
+      if (!state.userNumber || isNaN(state.userNumber) || !isFinite(state.userNumber)) {
         return {
           result: `Введите целое число от ${this.min} до ${this.max}`,
         }
@@ -37,38 +35,51 @@ export class ClassComponent extends Component {
       
       if (state.userNumber < this.min) {
         return {
-          result: `Число должно быть больше ${this.min}`,
+          result: `Ваше число должно быть больше ${this.min}`,
+          count: state.count + 1,
         }
       }
       
       if (state.userNumber > this.max) {
         return {
-          result: `Число должно быть меньше чем ${this.max}`,
+          result: `Ваше число должно быть меньше чем ${this.max}`,
+          count: state.count + 1,
         };
       }
       
-      if (Number(state.userNumber) === Number(state.number)) {
+      if (state.userNumber > state.randomNumber) {
         return {
-          result: `Угадал, угадал:) \nВаше число ${state.userNumber}`,
-          newgame: true, // перезапуск игры
-        };
-      } 
-      
-      if (state.userNumber > state.number) {
-        return {
+          count: state.count + 1,
           result: `Ваше число ${state.userNumber} БОЛЬШЕ загаданого`,
         }
       }
       
-      if (state.userNumber < state.number) {
+      if (state.userNumber < state.randomNumber) {
         return {
+          count: state.count + 1,
           result: `Ваше число ${state.userNumber} меньше загаданого`,
         }
       }
+    
+      if (Number(state.userNumber) === Number(state.randomNumber)) {
+        const counted = state.count + 1;
+        console.log('state.count: ', state.count);
+        console.log('counted: ', counted);
+        return {
+          count: counted,
+          newgame: true, // перезапуск игры
+          result: `Ваше число ${state.userNumber}\nУгадал! Угадал за попыток ${counted}`,
+        };
+      } 
+    }, () => {
+      this.state.userNumber = '';
+      // console.log('setState', this.state);
+      e.target.userNumber.focus(); // make focus on input
     }); // setState
 
     // после submit очищаем форму
     input.value = '';
+    // console.log('end of submit', this.state);
   }
 
 
@@ -77,7 +88,7 @@ export class ClassComponent extends Component {
     this.setState((state, props) => ({
       userNumber: input.value,
     }), () => {
-      console.log('тест асинхронного вывода', this.state, this.props);
+      console.log(this.state);
     });
   }
 
@@ -85,9 +96,13 @@ export class ClassComponent extends Component {
   handleReset = e => {
     this.setState({
       result: 'Новая игра',
-      number: randomNumber(this.min, this.max),
+      randomNumber: randomNumber(this.min, this.max),
       userNumber: '',
       newgame: false, // возвращаем в исходное состояние
+      count: 0,
+    }, () => {
+      console.log(this.state);
+      e.target.userNumber.focus(); // make focus on input
     });
     e.target.userNumber.value = ''; // clear
   }
@@ -96,14 +111,14 @@ export class ClassComponent extends Component {
   render() {
     return (
       <div className={style.game}>
-        <p
+        <pre
           className={style.result}
           title={this.state.newgame ?
             'Нажмите кнопку "Сыграть ещё"' :
-            `например попробуйте число ${this.state.number}`}
+            `например попробуйте число ${this.state.randomNumber}`}
         >
           {this.state.result}
-        </p>
+        </pre>
         <form
           className={style.form}
           onSubmit={this.handleSubmit}
@@ -152,4 +167,10 @@ export class ClassComponent extends Component {
       </div>
     );
   }
+}
+
+
+ClassComponent.propTypes = {
+  min: PropTypes.number,
+  max: PropTypes.number,
 }
