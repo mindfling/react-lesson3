@@ -14,7 +14,6 @@ export class ClassComponent extends Component {
     super(props);
 
     this.randomNumber = randomNumber.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -42,6 +41,20 @@ export class ClassComponent extends Component {
     if (!this.state.userNumber) {
       this.setState({
         result: `Введите целое число от ${this.min} до ${this.max}`,
+      });
+      return;
+    }
+
+    if (this.state.userNumber < this.min) {
+      this.setState({
+        result: `Число должно быть больше ${this.min}`,
+      });
+      return;
+    }
+
+    if (this.state.userNumber > this.max) {
+      this.setState({
+        result: `Число должно быть меньше чем ${this.max}`,
       });
       return;
     }
@@ -112,9 +125,7 @@ export class ClassComponent extends Component {
             id="user_number"
             name="inputnumber"
             disabled={this.state.newgame}
-            onChange={(e) => {
-              this.handleChange(e);
-            }}
+            onChange={this.handleChange}
           />
 
           <button
