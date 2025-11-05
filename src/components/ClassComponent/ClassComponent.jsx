@@ -1,7 +1,7 @@
 import {Component} from 'react'; 
 import style from './ClassComponent.module.css';
-import {randomNumMinimax, randomNumber} from '../../util/random';
 import PropTypes from 'prop-types';
+import { randomCeil, randomFloor } from '../../util/random';
 
 
 // * Классовый компонент
@@ -10,10 +10,9 @@ export class ClassComponent extends Component {
     super(props);
     this.min = Number(props.min);
     this.max = Number(props.max);
-    console.log('this.state: ', this.state);
     this.state = {
       result: 'Результат',
-      randomNumber: randomNumMinimax(this.min, this.max),
+      randomNumber: randomCeil(this.min, this.max),
       userNumber: '',
       newgame: false,
       count: 0,
@@ -63,8 +62,6 @@ export class ClassComponent extends Component {
     
       if (Number(state.userNumber) === Number(state.randomNumber)) {
         const counted = state.count + 1;
-        console.log('state.count: ', state.count);
-        console.log('counted: ', counted);
         return {
           count: counted,
           newgame: true, // перезапуск игры
@@ -73,13 +70,11 @@ export class ClassComponent extends Component {
       } 
     }, () => {
       this.state.userNumber = '';
-      // console.log('setState', this.state);
       e.target.userNumber.focus(); // make focus on input
     }); // setState
 
     // после submit очищаем форму
     input.value = '';
-    // console.log('end of submit', this.state);
   }
 
 
@@ -88,7 +83,7 @@ export class ClassComponent extends Component {
     this.setState((state, props) => ({
       userNumber: input.value,
     }), () => {
-      console.log(this.state);
+      // console.log(this.state);
     });
   }
 
@@ -96,12 +91,12 @@ export class ClassComponent extends Component {
   handleReset = e => {
     this.setState({
       result: 'Новая игра',
-      randomNumber: randomNumber(this.min, this.max),
+      randomNumber: randomCeil(this.min, this.max),
       userNumber: '',
       newgame: false, // возвращаем в исходное состояние
       count: 0,
     }, () => {
-      console.log(this.state);
+      // console.log(this.state);
       e.target.userNumber.focus(); // make focus on input
     });
     e.target.userNumber.value = ''; // clear
