@@ -1,7 +1,8 @@
-import {Component} from 'react'; 
+/* eslint-disable */
+import { Component } from 'react';
 import style from './ClassComponent.module.css';
 import PropTypes from 'prop-types';
-import { randomCeil, randomFloor } from '../../util/random';
+import {randomCeil} from '../../util/random';
 
 
 // * Классовый компонент
@@ -26,40 +27,44 @@ export class ClassComponent extends Component {
     const input = e.target.userNumber;
 
     this.setState(state => {
-      if (!state.userNumber || isNaN(state.userNumber) || !isFinite(state.userNumber)) {
+      if (
+        !state.userNumber ||
+        isNaN(state.userNumber) ||
+        !isFinite(state.userNumber)
+      ) {
         return {
           result: `Введите целое число от ${this.min} до ${this.max}`,
-        }
+        };
       }
-      
+
       if (state.userNumber < this.min) {
         return {
           result: `Ваше число должно быть больше ${this.min}`,
           count: state.count + 1,
-        }
+        };
       }
-      
+
       if (state.userNumber > this.max) {
         return {
           result: `Ваше число должно быть меньше чем ${this.max}`,
           count: state.count + 1,
         };
       }
-      
+
       if (state.userNumber > state.randomNumber) {
         return {
           count: state.count + 1,
           result: `Ваше число ${state.userNumber} БОЛЬШЕ загаданого`,
-        }
+        };
       }
-      
+
       if (state.userNumber < state.randomNumber) {
         return {
           count: state.count + 1,
           result: `Ваше число ${state.userNumber} меньше загаданого`,
-        }
+        };
       }
-    
+
       if (Number(state.userNumber) === Number(state.randomNumber)) {
         const counted = state.count + 1;
         return {
@@ -67,15 +72,16 @@ export class ClassComponent extends Component {
           newgame: true, // перезапуск игры
           result: `Ваше число ${state.userNumber}\nУгадал! Угадал за попыток ${counted}`,
         };
-      } 
+      }
     }, () => {
+      // todo
       this.state.userNumber = '';
       e.target.userNumber.focus(); // make focus on input
     }); // setState
 
     // после submit очищаем форму
     input.value = '';
-  }
+  };
 
 
   handleChange = e => {
@@ -85,7 +91,7 @@ export class ClassComponent extends Component {
     }), () => {
       // console.log(this.state);
     });
-  }
+  };
 
 
   handleReset = e => {
@@ -100,7 +106,7 @@ export class ClassComponent extends Component {
       e.target.userNumber.focus(); // make focus on input
     });
     e.target.userNumber.value = ''; // clear
-  }
+  };
 
 
   render() {
@@ -168,4 +174,4 @@ export class ClassComponent extends Component {
 ClassComponent.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
-}
+};
