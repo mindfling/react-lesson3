@@ -1,8 +1,9 @@
-// import React from 'react'; // 6.9k
-import { Component } from 'react'; // 4.1k
+import React from 'react'; // 6.9k
+import {Component} from 'react'; // 4.1k
 import ComponentClass from './components/ClassComponent';
 
-export default class App extends Component {
+
+class App extends Component {
   render() {
     return (
       <>
@@ -13,3 +14,6 @@ export default class App extends Component {
     );
   }
 }
+
+
+export default App;
