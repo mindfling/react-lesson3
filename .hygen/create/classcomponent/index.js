@@ -16,10 +16,8 @@ module.exports = {
         name: "category",
         message: "What is the type of the category of the component",
         choices: [
+          "class (by default)",
           "functional",
-          "class",
-          "pages (not)",
-          "template (not)",
         ],
       },
     ];
@@ -34,15 +32,6 @@ module.exports = {
         const path = `${dir ? `${dir}/` : ""}${component_name}`;
         const absPath = `./src/components/${path}`;
 
-        const isFunctional = category === 'functional';
-        const isClass = category === 'class';
-      
-        console.log('\nisFunctional: ', isFunctional);
-        console.log('isClass: ', isClass);
-        
-        // console.log("lower_name: ", lower_name);
-        // console.log('upper_name: ', upper_name);
-        // console.log("component loc path:", path);
         console.log("component abs Path:", absPath);
         console.log("\nall other answers: ", answers);
         
@@ -54,13 +43,10 @@ module.exports = {
           lower_name,
           upper_name,
           category,
-          isFunctional,
-          isClass,
         };
 
-        console.log(`
-  => The ${isFunctional ? 'Functional Component' : 'Class Component'} "${component_name}" just has been made`);
-
+        console.log(` => The Class Component "${component_name}" just has been created`);
+        console.log('ans: ', ans);
         return ans;
     });
   },
