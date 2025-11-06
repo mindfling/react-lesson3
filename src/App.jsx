@@ -1,19 +1,18 @@
-import React from 'react'; // 6.9k
-import {Component} from 'react'; // 4.1k
-import ComponentClass from './components/ClassComponent';
+import React from 'react';
+import ClassComponent from './components/ClassComponent';
 
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <div className="app">
-          <ComponentClass min={1} max={12} />
-        </div>
-      </>
-    );
-  }
-}
+const App = () => {
+  console.log('Functional App loaded');
+
+  return (
+    <>
+      <div className="app">
+        <ClassComponent min={1} max={12} />
+      </div>
+    </>
+  );
+};
 
 
 export default App;
