@@ -1,5 +1,6 @@
 import React from 'react';
-import ClassComponent from './components/ClassComponent';
+// import ClassComponent from './components/ClassComponent';
+import {FuncComponent} from './components/FuncComponent/FuncComponent';
 
 
 const App = () => {
@@ -8,7 +9,8 @@ const App = () => {
   return (
     <>
       <div className="app">
-        <ClassComponent min={1} max={12} />
+        {/* <ClassComponent min={1} max={12} /> */}
+        <FuncComponent min={1} max={12} />
       </div>
     </>
   );
